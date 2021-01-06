@@ -2,8 +2,8 @@ import socket
 import threading
 import sqlite3 as sql
 
-from html_parser import HTMLParser
-from http_parser import HTTPParser
+from .html_parser import HTMLParser
+from .http_parser import HTTPParser
 
 
 class Server():
@@ -55,29 +55,18 @@ class Server():
 
                     # Set the response to echo back the recieved data 
                     received_response = received_response.decode()
-                    #print('====== received data =====')
-                    #print(received_response)
-                    #print('======')
 
                     # determine the http type of received_response
                     http_method, url = HTTPParser.get_method(received_response)
-                    #print('method: {}, url: {}'.format(http_method, url))
 
                     # handle received response
                     self.html_parser.update_documents(received_response)
 
                     # generate response to the client server
                     html_response = self.html_parser.generate_response()
-                    #print('====== html response =====')
-                    #print(html_response)
 
-                    # wrap the html response into http response
+                    # wrap the html response into http response and send
                     http_response = self.http_parser.parse(text=html_response)
-                    #print('==== http response=====')
-                    #print(http_response)
-
-                    #print('=======end=======', flush=True)
-
                     client_socket.send(http_response.encode())
                 
                 # the client has closed the connection or timed out
@@ -89,4 +78,3 @@ class Server():
                 self.alive_connection -= 1
                 print('===thread closed! alive: {}======'.format(self.alive_connection), flush=True)
                 break
-

@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from server import Server
+from src.server import Server
 
 
 def main(args):
