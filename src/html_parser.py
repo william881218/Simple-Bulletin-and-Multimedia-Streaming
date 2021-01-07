@@ -7,9 +7,7 @@ class HTMLParser(object):
         with open(self.template_path, 'r') as f:
             self.template = f.readlines()
 
-        self.documents = [] # list of str, each entry representing an article
 
-    
     def extract_body(self, raw_text):
         '''
         Given a http raw text, return text between <body> and </body>
@@ -17,17 +15,12 @@ class HTMLParser(object):
         return raw_text
 
 
-    def update_documents(self, http_text):
+    def generate_response(self, documents_list):
         '''
-        Given a http raw text, extract the body part of the html and add it into document list
-        '''
-        # self.documents.append(self._parse_body(http_text))
-        pass
+        Replace VARIABLE in template html with documents in `documents_list` and return the output
 
-
-    def generate_response(self):
-        '''
-        Replace VARIABLE in template html with documents and return the output
+        Args:
+            documents_list (list of str) : list of path to document files
         '''
         output = ''
 
@@ -36,7 +29,12 @@ class HTMLParser(object):
             if line != 'VARIABLES\n':
                 output += line
             else: # replace `FROM_DATABASE\n` with custumized data in template html file
-                output += ''.join(self.documents)
+                for document_path in documents_list:
+                    with open(document_path, 'r') as f:
+                        # we handle each post here
+                        context_list = f.readlines()
+                        output += ''.join(context_list) + '\n'
+                        output += '<hr>'
 
         return output
     
