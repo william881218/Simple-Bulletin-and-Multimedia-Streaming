@@ -85,7 +85,8 @@ class Server():
                 elif http_method == 'GET' and url == '/':
                     pass
                 else: # non supported request type
-                    raise ValueError
+                    print('Error: Non-supported request type: {} \"{}\". Thread closed.'.format(http_method, url), flush=True)
+                    exit()
 
                 # generate response to the client server
                 html_response = self.html_parser.generate_response(self.document_list)
@@ -96,6 +97,7 @@ class Server():
             
             # the client has closed the connection or timed out
             else:
+                client_socket.shutdown(socket.SHUT_RDWR)
                 client_socket.close()
                 self.alive_connection -= 1
                 print('===thread closed! alive: {}======'.format(self.alive_connection), flush=True)

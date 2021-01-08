@@ -1,5 +1,6 @@
 import random
 import os
+from argparse import ArgumentParser
 
 import cv2
 from flask import Flask, request, render_template, send_file, Response
@@ -81,4 +82,10 @@ def upload():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port='9527')
+
+    # handle arg parser
+    argparse = ArgumentParser()
+    argparse.add_argument('-p', '--port', type=str, default=9527)
+    args = argparse.parse_args()
+
+    app.run(debug=True, host='0.0.0.0', port=args.port)
