@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Video Streaming" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+</head>
+
+<body style="background-color:wheat">
+    <div id="maintext"
+        style="position:absolute; margin:auto; margin-top: 0%; margin-bottom: 30%; width:1000px; height:100px; text-align:center; top:0; bottom: 0; left: 0; right: 0;">
+        <h1>
+            2020 CN Project - Video Streaming
+        </h1>
+        <h3>B07902027 高偉倫</h2><hr>
+        <h2>{{ video_name }}</h2>
+        <p><img src="{{ url_for('video_streaming') }}" width="100%"></p>
+        <hr>
+        <h3 class="text-light mb-2">Click <a href="/download">here</a> to download the full video.</h3>
+        <h3>Or, upload your own video to replace current one if you think your video are better :)</h3>
+        <form method=post enctype=multipart/form-data action="/upload">
+            <p class="text-light">
+                Name: <input type=text name=name> 
+                Video: <input type=file name=file>
+                <input type=submit value=Upload>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>
