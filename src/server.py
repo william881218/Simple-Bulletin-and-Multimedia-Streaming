@@ -12,7 +12,7 @@ class Server():
     '''
     Basic socket that supports multithreading.
     '''
-    def __init__(self, port, host='127.0.0.1', buf_size=4096, document_dir='documents'):
+    def __init__(self, port, host='0.0.0.0', buf_size=4096, document_dir='documents'):
 
         self.host = host
         self.port = port
