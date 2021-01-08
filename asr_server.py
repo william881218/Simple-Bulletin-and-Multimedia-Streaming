@@ -34,12 +34,18 @@ def main_page():
 
 
 @app.route('/corpus/7.wav', methods=['GET'])
-def download_corpus():
+def download_corpus_7():
     '''
     Responsible for downloading audio corpuses. 
-    Currently only 7.wav is available.
     '''
     return send_file(os.path.join(app.config["ROOT_DIR"], "corpus/7.wav"), as_attachment=True)
+
+@app.route('/corpus/3.wav', methods=['GET'])
+def download_corpus_3():
+    '''
+    Responsible for downloading audio corpuses. 
+    '''
+    return send_file(os.path.join(app.config["ROOT_DIR"], "corpus/3.wav"), as_attachment=True)
 
 
 @app.route("/asr", methods=["POST"])
